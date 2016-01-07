@@ -1,1 +1,15 @@
-<p>This is the partial for view 1.</p>
+<p class="demo">This is the partial for view 1.</p>
+
+<p>Question {{question.number}}</p>
+
+<p>{{question.question}}</p>
+
+<p>{{question.body}}</p>
+
+<p>
+    <label ng-repeat="v in question.variants">
+        <input type="checkbox" ng-model="v.selected" /> {{v.text}}
+    </label>
+
+    <input ng-value="getBtnCaption()" type="button" ng-click="moveToNextQuestion()"/>
+</p>
