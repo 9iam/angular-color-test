@@ -3,37 +3,8 @@
 angular.module('myApp.questionsProvider', [
 ])
 
-.factory('questionsProvider', function() {
-    var questions = [
-    {
-        number: 1,
-        question: 'Do you like me?',
-        variants: [
-        {
-            text: 'blah blah',
-            isRight: true,
-        }, {
-            text: 'blah blah',
-            isRight: false,
-        },  {
-            text: 'blah blah',
-            isRight: false,
-        }]
-    }, {
-         number: 2,
-         question: 'What do you prefer to drink today?',
-         variants: [
-         {
-             text: 'Water',
-             isRight: false,
-         }, {
-             text: 'Cola',
-             isRight: false,
-         },  {
-             text: 'Whiskey',
-             isRight: true,
-         }]
-    }];
+.factory('questionsProvider', ['questionsGenerator', function(questionsGenerator) {
+    var questions = questionsGenerator.getQuestions();
 
     var currentQuestion = 0;
 
@@ -54,4 +25,4 @@ angular.module('myApp.questionsProvider', [
     }
 
     return this;
-});
+}]);

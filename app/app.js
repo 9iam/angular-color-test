@@ -6,6 +6,7 @@ angular.module('myApp', [
   'myApp.view1',
   'myApp.view2',
   'myApp.version',
+  'myApp.questionsGenerator',
   'myApp.questionsProvider',
   'myApp.questionsResolver'
 ]).
