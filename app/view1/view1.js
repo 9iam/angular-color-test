@@ -9,10 +9,10 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl', ['$scope', 'questionsProvider', 'questionsResolver', function($scope, questionsProvider, questionsResolver) {
-    $scope.killAllPeople = function() {
-        return '123';
-    };
+.controller('View1Ctrl', ['$scope', '$location', 'questionsProvider', 'questionsResolver', function($scope, $location, questionsProvider, questionsResolver) {
+    $scope.variantClicked = function(variant) {
+        $scope.question.variantIsChosen = true;
+    }
 
     $scope.question = questionsProvider.getCurrentQuestion();
 
@@ -22,14 +22,29 @@ angular.module('myApp.view1', ['ngRoute'])
         } else {
             console.log('No more questions');
             console.log(questionsResolver.getResult());
+            $location.path('/view2');
+        }
+    };
+
+    $scope.moveToPreviousQuestion = function() {
+        if (!questionsProvider.isFirstQuestion()) {
+            $scope.question = questionsProvider.getPreviousQuestion();
+        } else {
+            console.log('First question, can\'t go back');
+            console.log(questionsResolver.getResult());
         }
     };
 
     $scope.hasMoreQuestions = function() {
         return questionsProvider.hasMoreQuestions();
-    }
+    };
 
-    $scope.getBtnCaption = function() {
+    $scope.isFirstQuestion = function() {
+        console.log('questionsProvider.isFirstQuestion():', questionsProvider.isFirstQuestion());
+        return questionsProvider.isFirstQuestion();
+    };
+
+    $scope.getMainButtonCaption = function() {
         return questionsProvider.hasMoreQuestions() ? 'Next' : 'Finish';
-    }
+    };
 }]);

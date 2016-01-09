@@ -1,4 +1,4 @@
-'use strict';
+;'use strict';
 
 angular.module('myApp.questionsProvider', [
 ])
@@ -22,6 +22,14 @@ angular.module('myApp.questionsProvider', [
 
     this.hasMoreQuestions = function() {
         return currentQuestion < questions.length - 1;
+    }
+
+    this.isFirstQuestion = function() {
+        return currentQuestion == 0;
+    }
+
+    this.getPreviousQuestion = function() {
+        return questions[--currentQuestion];
     }
 
     return this;

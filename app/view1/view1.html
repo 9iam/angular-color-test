@@ -7,10 +7,14 @@
 <p>{{question.body}}</p>
 
 <p>
-    <label ng-repeat="v in question.variants">
-        <input type="checkbox" ng-model="v.selected" />
-            <span title="{{v.text}}" style="color:{{v.color}}">█████</span><br/>
-    </label>
+    <form>
+        <label ng-repeat="v in question.variants">
+            <input type="checkbox" ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)"/>
+                <span title="{{v.text}}" style="color:{{v.color}}">█████</span><br/>
+        </label>
 
-    <input ng-value="getBtnCaption()" type="button" ng-click="moveToNextQuestion()"/>
+        <input ng-value="getMainButtonCaption()" type="button" ng-click="moveToNextQuestion()"/>
+
+        <input value="Back" type="button" ng-click="moveToPreviousQuestion()" ng-show="!isFirstQuestion()"/>
+    </form>
 </p>
