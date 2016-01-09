@@ -8,7 +8,8 @@
 
 <p>
     <label ng-repeat="v in question.variants">
-        <input type="checkbox" ng-model="v.selected" /> {{v.text}}
+        <input type="checkbox" ng-model="v.selected" />
+            <span title="{{v.text}}" style="color:{{v.color}}">█████</span><br/>
     </label>
 
     <input ng-value="getBtnCaption()" type="button" ng-click="moveToNextQuestion()"/>
