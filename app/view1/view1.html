@@ -7,10 +7,13 @@
 <p>{{question.body}}</p>
 
 <p>
-    <form>
+    <form>    	
         <label ng-repeat="v in question.variants">
             <input type="checkbox" ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)"/>
-                <span title="{{v.text}}" style="color:{{v.color}}">█████</span><br/>
+                <span title="{{v.text}}" style="color:{{v.color}}">█████</span>
+                &nbsp;&nbsp;&nbsp;
+            	<span>{{instantResult(v)}}<span>
+            	<br/>
         </label>
 
         <input ng-value="getMainButtonCaption()" type="button" ng-click="moveToNextQuestion()"/>

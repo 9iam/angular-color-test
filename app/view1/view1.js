@@ -12,6 +12,15 @@ angular.module('myApp.view1', ['ngRoute'])
 .controller('View1Ctrl', ['$scope', '$location', 'questionsProvider', 'questionsResolver', function($scope, $location, questionsProvider, questionsResolver) {
     $scope.variantClicked = function(variant) {
         $scope.question.variantIsChosen = true;
+        console.log(variant);
+        console.log($scope.question);
+    }
+
+    $scope.instantResult = function(variant){
+        if (!!variant.selected) {
+            return variant.isRight ? 'right!' : 'wrong, it\'s ' + variant.text
+        }
+        return '';        
     }
 
     $scope.question = questionsProvider.getCurrentQuestion();
@@ -40,7 +49,6 @@ angular.module('myApp.view1', ['ngRoute'])
     };
 
     $scope.isFirstQuestion = function() {
-        console.log('questionsProvider.isFirstQuestion():', questionsProvider.isFirstQuestion());
         return questionsProvider.isFirstQuestion();
     };
 
