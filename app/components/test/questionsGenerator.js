@@ -43,11 +43,15 @@ angular.module('myApp.questionsGenerator', [
         return randomKey;
     }
 
-    function getColorQuestion(shades, baseShade, numVariants) {
+    function getColorQuestion(shades, baseShade, numVariants, number) {
         var question = {
             question: 'Which color is ' + baseShade + '?',
             variants: []
         };
+
+        if (number) {
+            question.number = number;
+        }
 
         for (var i=0; i < numVariants; i++) {
             var randomShade = getRandomShadeWhichIsNot(shades, baseShade);
@@ -73,8 +77,8 @@ angular.module('myApp.questionsGenerator', [
         var result = [];
         var keys = Object.keys(shades.pink);
         for (var j=0; j < numQuestions; j++) {
-            var key = keys[j%keys.length];
-            result.push(getColorQuestion(shades.pink, key, numVariants));
+            var key = keys[j%keys.length];            
+            result.push(getColorQuestion(shades.pink, key, numVariants, j+1));
         }
         return result;
     }

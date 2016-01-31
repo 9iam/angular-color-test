@@ -1,23 +1,29 @@
+<div class="q">
+
 <p class="demo">This is the partial for view 1.</p>
 
-<p>Question {{question.number}}</p>
+<p><b>Q</b>uestion {{question.number}}</p>
 
 <p>{{question.question}}</p>
 
 <p>{{question.body}}</p>
 
 <p>
-    <form>    	
+    <form class="qpanel">    	
         <label ng-repeat="v in question.variants">
             <input type="checkbox" ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)"/>
-                <span title="{{v.text}}" style="color:{{v.color}}">█████</span>
+                <span title="{{getVariantTitle(v)}}" style="color:{{v.color}}">█████</span>
                 &nbsp;&nbsp;&nbsp;
             	<span>{{instantResult(v)}}<span>
             	<br/>
-        </label>
-
-        <input ng-value="getMainButtonCaption()" type="button" ng-click="moveToNextQuestion()"/>
-        <br/>
-        <input value="Back" type="button" ng-click="moveToPreviousQuestion()" ng-show="!isFirstQuestion()"/>
+        </label>        
     </form>
+
+    <form>
+    	<input class ="btn" ng-value="getMainButtonCaption()" type="button" ng-click="moveToNextQuestion()"/>
+    	<br/><br/>
+    	<a ng-click="moveToPreviousQuestion()" ng-show="!isFirstQuestion()" href="">Back</a>
+	</form>
 </p>
+
+</div>

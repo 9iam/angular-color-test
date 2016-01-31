@@ -55,4 +55,8 @@ angular.module('myApp.view1', ['ngRoute'])
     $scope.getMainButtonCaption = function() {
         return questionsProvider.hasMoreQuestions() ? 'Next' : 'Finish';
     };
+
+    $scope.getVariantTitle = function(variant) {
+        return $scope.question.variantIsChosen ? variant.text : '';
+    };
 }]);

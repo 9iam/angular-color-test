@@ -32,4 +32,17 @@
 .demo {
   background: yellow;
   color: black;
+  display: none;
+}
+
+.q {
+  margin-left: 10px;
+}
+
+.qpanel {
+  margin: 20px 0px 20px 20px;
+}
+
+.qpanel > .btn {
+  font-variant: small-caps;
 }
