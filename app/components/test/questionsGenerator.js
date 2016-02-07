@@ -43,6 +43,15 @@ angular.module('myApp.questionsGenerator', [
         return randomKey;
     }
 
+    function getPseudoRandomNextElement(k, n) {
+        console.log('Getting next element after ', k, ' mod ', n);
+        var randInt = getRandomInt(1, 3);
+        var pseudoRandInc = randInt == 1 ? 3 :
+            (randInt == 2 ? 7 : 11);
+        console.log('pseudoRandInc == ', pseudoRandInc);
+        return (k + pseudoRandInc) % n;
+    }
+
     function getColorQuestion(shades, baseShade, numVariants, number) {
         var question = {
             question: 'Which color is ' + baseShade + '?',
@@ -53,8 +62,13 @@ angular.module('myApp.questionsGenerator', [
             question.number = number;
         }
 
+        var keys = Object.keys(shades);
+        console.log('keys:', keys);
+        var k = keys.indexOf(baseShade);
+        console.log('k:', k);
         for (var i=0; i < numVariants; i++) {
-            var randomShade = getRandomShadeWhichIsNot(shades, baseShade);
+            //var randomShade = getRandomShadeWhichIsNot(shades, baseShade);
+            var randomShade = keys[k=getPseudoRandomNextElement(k, keys.length)];
             question.variants.push({
                 text: randomShade,
                 color: shades[randomShade],
@@ -73,12 +87,13 @@ angular.module('myApp.questionsGenerator', [
     }
 
     this.getQuestions = function() {
-        const numQuestions = 5, numVariants = 4;
+        var numQuestions = 10, numVariants = 2;
         var result = [];
         var keys = Object.keys(shades.pink);
         for (var j=0; j < numQuestions; j++) {
             var key = keys[j%keys.length];            
             result.push(getColorQuestion(shades.pink, key, numVariants, j+1));
+            numVariants += 2;
         }
         return result;
     }
