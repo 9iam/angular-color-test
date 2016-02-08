@@ -3,32 +3,51 @@
 angular.module('myApp.questionsGenerator', [
 ])
 
-.factory('questionsGenerator', function() {
+.factory('questionsGenerator', ['$route', function($route) {
+    var activeShade = $route.current.params.colorId || 'pink';
+
     var shades = {
+        white: {
+            'White': '#FFFFFF',
+            'Whitesmoke': '#F5F5F5',
+            'Snow': '#FFFAFA',
+            'Honeydew': '#F0FFF0',
+            'Mintcream': '#F5FFFA',
+            'Azure': '#F0FFFF',
+            'Aliceblue': '#F0F8FF',
+            'Ghostwhite': '#F8F8FF',
+            'Seashell': '#FFF5EE',
+            'Beige': '#F5F5DC',
+            'Oldlace': '#FDF5E6',
+            'Floralwhite': '#FFFAF0',
+            'Ivory': '#FFFFF0',
+            'Antiquewhite': '#FAEBD7',
+            'Linen': '#FAF0E6',
+            'Lavenderblush': '#FFF0F5'
+        },  // info from wikipedia
         pink: {
-            pink: '#F69ACD',
-            rose: '#FC94AD',
-            fuscia: '#FC46AA',
-            punch: '#F15278',
-            blush: '#FEC5E5',
-            watermelon: '#FE7F9C',
-            flamingo: '#FDA4B8',
-            rouge: '#F26B8B',
-            salmon: '#FDAB9F',
-            coral: '#FE7D68',
-            peach: '#FB9483',
-            strawberry: '#FC4C4E',
-            rosewood: '#A04242',
-            lemonade: '#FBBBCB',
-            taffy: '#FA86C5',
-            bubblegum: '#FD5CA8',
-            'ballet slipper': '#F69ABF',
-            crepe: '#F2B8C6',
-            magenta: '#E11584',
-            'hot pink': '#E11584'
-        }
-    };
-    // info from http://digitalsynopsis.com/design/color-thesaurus-correct-names-of-shades/
+            Pink: '#F69ACD',
+            Rose: '#FC94AD',
+            Fuscia: '#FC46AA',
+            Punch: '#F15278',
+            Blush: '#FEC5E5',
+            Watermelon: '#FE7F9C',
+            Flamingo: '#FDA4B8',
+            Rouge: '#F26B8B',
+            Salmon: '#FDAB9F',
+            Coral: '#FE7D68',
+            Peach: '#FB9483',
+            Strawberry: '#FC4C4E',
+            Rosewood: '#A04242',
+            Lemonade: '#FBBBCB',
+            Taffy: '#FA86C5',
+            Bubblegum: '#FD5CA8',
+            'Ballet slipper': '#F69ABF',
+            Crepe: '#F2B8C6',
+            Magenta: '#E11584',
+            'Hot pink': '#E11584'
+        }  // info from http://digitalsynopsis.com/design/color-thesaurus-correct-names-of-shades/
+    };    
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -44,11 +63,9 @@ angular.module('myApp.questionsGenerator', [
     }
 
     function getPseudoRandomNextElement(k, n) {
-        console.log('Getting next element after ', k, ' mod ', n);
         var randInt = getRandomInt(1, 3);
         var pseudoRandInc = randInt == 1 ? 3 :
             (randInt == 2 ? 7 : 11);
-        console.log('pseudoRandInc == ', pseudoRandInc);
         return (k + pseudoRandInc) % n;
     }
 
@@ -63,16 +80,13 @@ angular.module('myApp.questionsGenerator', [
         }
 
         var keys = Object.keys(shades);
-        console.log('keys:', keys);
         var k = keys.indexOf(baseShade);
-        console.log('k:', k);
         for (var i=0; i < numVariants; i++) {
-            //var randomShade = getRandomShadeWhichIsNot(shades, baseShade);
             var randomShade = keys[k=getPseudoRandomNextElement(k, keys.length)];
             question.variants.push({
                 text: randomShade,
                 color: shades[randomShade],
-                isRight: false
+                isRight: randomShade == baseShade
             });
         }
 
@@ -87,16 +101,17 @@ angular.module('myApp.questionsGenerator', [
     }
 
     this.getQuestions = function() {
+        console.log('activeShade is', activeShade);
         var numQuestions = 10, numVariants = 2;
         var result = [];
-        var keys = Object.keys(shades.pink);
+        var keys = Object.keys(shades[activeShade]);
         for (var j=0; j < numQuestions; j++) {
             var key = keys[j%keys.length];            
-            result.push(getColorQuestion(shades.pink, key, numVariants, j+1));
-            numVariants += 2;
+            result.push(getColorQuestion(shades[activeShade], key, numVariants, j+1));
+            numVariants += 1;
         }
         return result;
     }
 
     return this;
-});
+}]);

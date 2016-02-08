@@ -3,13 +3,13 @@
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
+  $routeProvider.when('/colors/:colorId?', {
     templateUrl: 'view1/view1.html',
     controller: 'View1Ctrl'
   });
 }])
 
-.controller('View1Ctrl', ['$scope', '$location', 'questionsProvider', 'questionsResolver', function($scope, $location, questionsProvider, questionsResolver) {
+.controller('View1Ctrl', ['$scope', '$route', '$location', 'questionsProvider', 'questionsResolver', function($scope, $route, $location, questionsProvider, questionsResolver) {    
     $scope.variantClicked = function(variant) {
         $scope.question.variantIsChosen = true;
         console.log(variant);
@@ -18,7 +18,11 @@ angular.module('myApp.view1', ['ngRoute'])
 
     $scope.instantResult = function(variant){
         if (!!variant.selected) {
-            return variant.isRight ? 'right!' : 'wrong, it\'s ' + variant.text
+            if (variant.isRight) {
+                return '⇐ Yes, it\'s ' + '"' + variant.text + '"!';
+            } else {
+                return '⇍ Sorry, it\'s ' + '"' + variant.text + '"';
+            }            
         }
         return '';        
     }
