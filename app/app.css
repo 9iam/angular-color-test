@@ -46,3 +46,9 @@
 .qpanel > .btn {
   font-variant: small-caps;
 }
+
+.circle {
+    position: relative;        
+    border-radius: 50%;    
+    border: 20px solid white;
+}

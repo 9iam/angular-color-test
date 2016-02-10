@@ -10,7 +10,8 @@ angular.module('myApp.view1', ['ngRoute'])
 }])
 
 .controller('View1Ctrl', ['$scope', '$route', '$location', 'questionsProvider', 'questionsResolver', function($scope, $route, $location, questionsProvider, questionsResolver) {    
-    $scope.variantClicked = function(variant) {
+    $scope.variantClicked = function(variant) {        
+        variant.selected = true;
         $scope.question.variantIsChosen = true;
         console.log(variant);
         console.log($scope.question);

@@ -22,7 +22,7 @@ angular.module('myApp.questionsResolver', [
                 countRight++;
             }
         }
-        return 'Right: ' + countRight + ' out of ' + questions.length;
+        return {right: countRight, overall: questions.length};
     }
     return this;
 }]);

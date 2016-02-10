@@ -1,29 +1,31 @@
-<div class="q">
-
-<p class="demo">This is the partial for view 1.</p>
-
-<p><b>Q</b>uestion {{question.number}}</p>
-
-<p>{{question.question}}</p>
-
-<p>{{question.body}}</p>
-
-<p>
-    <form class="qpanel">    	
-        <label ng-repeat="v in question.variants">
-            <input type="checkbox" ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)"/>
-                <span title="{{getVariantTitle(v)}}" style="color:{{v.color}}">█████</span>
-                &nbsp;&nbsp;&nbsp;
-            	<span>{{instantResult(v)}}<span>
-            	<br/>
-        </label>        
-    </form>
-
-    <form>
-    	<input class ="btn" ng-value="getMainButtonCaption()" type="button" ng-click="moveToNextQuestion()"/>
-    	<br/><br/>
-    	<a ng-click="moveToPreviousQuestion()" ng-show="!isFirstQuestion()" href="">Back</a>
-	</form>
-</p>
-
+<div layout="row" layout-margin>
+    <div><b>Q</b>uestion {{question.number}}.</div>
+    <div><b>{{question.question}}</b></div>
 </div>
+
+<div flex layout="row">
+    <md-sidenav md-is-locked-open="true" class="md-whiteframe-z2">
+        <md-list>            
+            <md-list-item ng-repeat="v in question.variants">
+                <md-button ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)">                    
+                    <div style="width: 99%; background: {{v.color}}">&nbsp;</div>                    
+                </md-button>                
+                <span class="instantResult" ng-show="question.variantIsChosen">{{instantResult(v)}}</span>
+            </md-list-item>
+        </md-list>
+            <!--<div ng-repeat="v in question.variants">
+                <input type="checkbox" ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)" class="variantbox"/>                
+                <span title="{{getVariantTitle(v)}}">
+                    <div class="circle"
+                         style="width: 2em; height: 2em; background: {{v.color}};"/>
+                </span>
+                <span class="instantResult" ng-show="question.variantIsChosen">{{instantResult(v)}}<span>
+            </div>-->
+    </md-sidenav>
+</div>
+
+<form class="qpanel">
+    <input class ="btn" ng-value="getMainButtonCaption()" type="button" ng-click="moveToNextQuestion()"/>
+    <br/><br/>
+    <a ng-click="moveToPreviousQuestion()" ng-show="!isFirstQuestion()" href="">Back</a>
+</form>

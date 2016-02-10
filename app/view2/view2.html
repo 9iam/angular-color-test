@@ -1,6 +1,6 @@
 <p class="demo">This is the partial for view 2.</p>
-<p>
-  <p>You scored</p>
+<p ng-init="result=getResult()">
+  <p>Congratulations!</p>
 
-  <p>{{getResult()}}</p>
+  <p>You scored: <b>{{result.right}}</b> out of {{result.overall}}</p>
 </p>
