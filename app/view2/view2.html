@@ -1,6 +1,20 @@
-<p class="demo">This is the partial for view 2.</p>
-<p ng-init="result=getResult()">
+<p ng-init="rightVars=getRightVariants()">
   <p>Congratulations!</p>
 
-  <p>You scored: <b>{{result.right}}</b> out of {{result.overall}}</p>
+  <p>You scored: <b>{{rightVars.length}}</b> out of {{getOveralVariantsCount()}}</p>
+
+  <p>Known colors:</p>
+
+  <div flex layout="row">
+    <md-sidenav md-is-locked-open="true" class="md-whiteframe-z2">
+        <md-list>            
+            <md-list-item ng-repeat="v in rightVars">
+                <md-button ng-disabled="true">                    
+                    <div style="width: 99%; background: {{v.color}}">&nbsp;</div>                    
+                </md-button>
+                <span class="instantResult">⇐ {{v.text}}</span>
+            </md-list-item>
+        </md-list>        
+    </md-sidenav>
+</div>
 </p>

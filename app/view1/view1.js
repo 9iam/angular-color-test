@@ -12,20 +12,13 @@ angular.module('myApp.view1', ['ngRoute'])
 .controller('View1Ctrl', ['$scope', '$route', '$location', 'questionsProvider', 'questionsResolver', function($scope, $route, $location, questionsProvider, questionsResolver) {    
     $scope.variantClicked = function(variant) {        
         variant.selected = true;
-        $scope.question.variantIsChosen = true;
+        $scope.question.variantIsChosen = variant;
         console.log(variant);
         console.log($scope.question);
     }
 
     $scope.instantResult = function(variant){
-        if (!!variant.selected) {
-            if (variant.isRight) {
-                return '⇐ Yes, it\'s ' + '"' + variant.text + '"!';
-            } else {
-                return '⇍ Sorry, it\'s ' + '"' + variant.text + '"';
-            }            
-        }
-        return '';        
+        return questionsResolver.instantResult(variant);        
     }
 
     $scope.question = questionsProvider.getCurrentQuestion();
@@ -35,8 +28,8 @@ angular.module('myApp.view1', ['ngRoute'])
             $scope.question = questionsProvider.getNextQuestion();
         } else {
             console.log('No more questions');
-            console.log(questionsResolver.getResult());
-            $location.path('/view2');
+            console.log(questionsResolver.getRightVariants());
+            $location.path('/results');
         }
     };
 
@@ -45,7 +38,7 @@ angular.module('myApp.view1', ['ngRoute'])
             $scope.question = questionsProvider.getPreviousQuestion();
         } else {
             console.log('First question, can\'t go back');
-            console.log(questionsResolver.getResult());
+            console.log(questionsResolver.getRightVariants());
         }
     };
 

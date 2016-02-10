@@ -4,7 +4,9 @@
 </div>
 
 <div flex layout="row">
-    <md-sidenav md-is-locked-open="true" class="md-whiteframe-z2">
+    <md-sidenav md-is-locked-open="true" class="md-whiteframe-z2"
+                ng-class="{happy: question.variantIsChosen.isRight,
+                           sad: (question.variantIsChosen && !question.variantIsChosen.isRight)}">
         <md-list>            
             <md-list-item ng-repeat="v in question.variants">
                 <md-button ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)">                    
@@ -12,15 +14,7 @@
                 </md-button>                
                 <span class="instantResult" ng-show="question.variantIsChosen">{{instantResult(v)}}</span>
             </md-list-item>
-        </md-list>
-            <!--<div ng-repeat="v in question.variants">
-                <input type="checkbox" ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)" class="variantbox"/>                
-                <span title="{{getVariantTitle(v)}}">
-                    <div class="circle"
-                         style="width: 2em; height: 2em; background: {{v.color}};"/>
-                </span>
-                <span class="instantResult" ng-show="question.variantIsChosen">{{instantResult(v)}}<span>
-            </div>-->
+        </md-list>        
     </md-sidenav>
 </div>
 

@@ -29,12 +29,6 @@
   padding: 0;
 }
 
-.demo {
-  background: yellow;
-  color: black;
-  display: none;
-}
-
 .q {
   margin-left: 10px;
 }
@@ -51,4 +45,12 @@
     position: relative;        
     border-radius: 50%;    
     border: 20px solid white;
+}
+
+.happy {
+  background: #FFFFF8;
+}
+
+.sad {
+  background: #F8F8F8;
 }
