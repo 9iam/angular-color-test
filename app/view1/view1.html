@@ -9,17 +9,19 @@
                            sad: (question.variantIsChosen && !question.variantIsChosen.isRight)}">
         <md-list>            
             <md-list-item ng-repeat="v in question.variants">
-                <md-button ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variantClicked(v)">                    
-                    <div style="width: 99%; background: {{v.color}}">&nbsp;</div>                    
-                </md-button>                
-                <span class="instantResult" ng-show="question.variantIsChosen">{{instantResult(v)}}</span>
+                <md-button ng-model="v.selected" ng-disabled="question.variantIsChosen" ng-click="variants.clicked(v)" aria-label="v.color">
+                    <div style="width: 99%; background: {{v.color}}">
+                        &nbsp;
+                    </div>
+                </md-button>
+                <span class="instantResult" ng-show="question.variantIsChosen">{{variants.instantResult(v)}}</span>
             </md-list-item>
-        </md-list>        
+        </md-list>
     </md-sidenav>
 </div>
 
 <form class="qpanel">
-    <input class ="btn" ng-value="getMainButtonCaption()" type="button" ng-click="moveToNextQuestion()"/>
+    <input class ="btn" ng-value="getMainButtonCaption()" type="button" ng-click="questions.moveToNext()"/>
     <br/><br/>
-    <a ng-click="moveToPreviousQuestion()" ng-show="!isFirstQuestion()" href="">Back</a>
+    <a ng-click="questions.moveToPrevious()" ng-show="!questions.isFirst()" href="">Back</a>
 </form>

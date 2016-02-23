@@ -39,8 +39,9 @@ angular.module('myApp.questionsResolver', [
             } else {
                 return '⇍ Sorry, it\'s ' + '"' + variant.text + '"';
             }            
-        }
-        return '';
+        } else {
+            return '';
+        }        
     }
 
     return this;

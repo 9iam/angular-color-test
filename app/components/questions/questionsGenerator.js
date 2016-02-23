@@ -3,8 +3,8 @@
 angular.module('myApp.questionsGenerator', [
 ])
 
-.factory('questionsGenerator', ['$route', function($route) {
-    var activeShade = $route.current.params.colorId || 'pink';
+.factory('questionsGenerator', ['settings', function(settings) {
+    var activeShade = settings.activeShade;
 
     var shades = {
         white: {
@@ -102,11 +102,13 @@ angular.module('myApp.questionsGenerator', [
 
     this.getQuestions = function() {
         console.log('activeShade is', activeShade);
-        var numQuestions = 10, numVariants = 2;
-        var result = [];
-        var keys = Object.keys(shades[activeShade]);
+        var numQuestions = settings.maxNumberOfQuestions,
+            numVariants = settings.initialNumberOfVariants,
+            result = [],
+            keys = Object.keys(shades[activeShade]),
+            offset = settings.offset;
         for (var j=0; j < numQuestions; j++) {
-            var key = keys[j%keys.length];            
+            var key = keys[(j+offset)%keys.length];            
             result.push(getColorQuestion(shades[activeShade], key, numVariants, j+1));
             numVariants += 1;
         }
